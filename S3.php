@@ -565,6 +565,16 @@ class S3
 		return true;
 	}
 
+    public static function getLifeCycleConfiguration($bucket)
+    {
+        $rest = new S3Request('GET', $bucket, '', self::$endpoint);
+        $rest->setParameter('lifecycle', '');
+        if (($response = $rest->getResponse()) == false || $response->code !== 200) {
+            return [];
+        }
+        return $response;
+    }
+
 
 	/**
 	* Create input info array for putObject()
